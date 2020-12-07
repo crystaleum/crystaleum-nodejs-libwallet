@@ -8,7 +8,7 @@ using namespace v8;
 
 namespace exawallet {
 
-const uint32_t CreateTransactionArgs::MINIMAL_MIXIN = 7;
+const uint32_t CreateTransactionArgs::MINIMAL_MIXIN = 2;
 
 template<typename T>
 T convertValue(Local<Value> value);
@@ -90,11 +90,11 @@ std::string CreateWalletArgs::Init(const Nan::FunctionCallbackInfo<Value>& args)
     language = getOptionalProperty<std::string>(obj, "language", "English");
     auto net = getOptionalProperty<std::string>(obj, "network", "mainnet");
     if (net == "mainnet") {
-        nettype = Monero::MAINNET;
+        nettype = Crystaleum::MAINNET;
     } else if (net == "testnet") {
-        nettype = Monero::TESTNET;
+        nettype = Crystaleum::TESTNET;
     } else if (net == "stagenet") {
-        nettype = Monero::STAGENET;
+        nettype = Crystaleum::STAGENET;
     } else {
         return "Invalid value for network: " + net;
     }
@@ -120,11 +120,11 @@ std::string OpenWalletArgs::Init(const Nan::FunctionCallbackInfo<Value>& args) {
 
     auto net = getOptionalProperty<std::string>(obj, "network", "mainnet");
     if (net == "mainnet") {
-        nettype = Monero::MAINNET;
+        nettype = Crystaleum::MAINNET;
     } else if (net == "testnet") {
-        nettype = Monero::TESTNET;
+        nettype = Crystaleum::TESTNET;
     } else if (net == "stagenet") {
-        nettype = Monero::STAGENET;
+        nettype = Crystaleum::STAGENET;
     } else {
         return "Invalid value for network: " + net;
     }
@@ -151,11 +151,11 @@ std::string RecoveryWalletArgs::Init(const Nan::FunctionCallbackInfo<Value>& arg
 
     auto net = getOptionalProperty<std::string>(obj, "network", "mainnet");
     if (net == "mainnet") {
-        nettype = Monero::MAINNET;
+        nettype = Crystaleum::MAINNET;
     } else if (net == "testnet") {
-        nettype = Monero::TESTNET;
+        nettype = Crystaleum::TESTNET;
     } else if (net == "stagenet") {
-        nettype = Monero::STAGENET;
+        nettype = Crystaleum::STAGENET;
     } else {
         return "Invalid value for network: " + net;
     }
