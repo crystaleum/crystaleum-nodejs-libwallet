@@ -1,6 +1,6 @@
 {
   "name": "crystaleum-nodejs-libwallet",
-  "version": "0.1.0",
+  "version": "1.0",
   "description": "Crystaleum libwallet native addon. Under development at the moment",
   "main": "index.js",
   "typings": "index.d.ts",
@@ -46,8 +46,8 @@
   "binary": {
     "module_name": "crystaleum",
     "module_path": "./lib/binding/",
-    "remote_path": "./{module_name}/v{version}/{configuration}/",
     "package_name": "crystaleum-windows_cryptic-crystal-v1.0.zip",
+    "remote_path": "./releases/download/v{version}/{package_name}/",
     "host": "https://github.com/crystaleum"
   },
   "scripts": {
