@@ -1,4 +1,4 @@
-MONERO_BRANCH?="release-v0.16-exa-wallet-nodejs"
+MONERO_BRANCH?="1.0"
 MONERO_BUILD_TYPE?=Release
 
 BOOST_VERSION=1.66.0
@@ -19,7 +19,7 @@ all: binding.gyp deps
 .PHONY: clean
 clean:
 	rm -rf boost
-	rm -rf monero/build
+	rm -rf crystaleum/build
 	rm -rf ${BOOST_DIRNAME}
 	rm -rf ${SODIUM_DIRNAME}
 	rm -rf deps
@@ -63,7 +63,7 @@ crystaleum:
 	git clone --depth 1 --recurse-submodules -b ${MONERO_BRANCH} https://github.com/crystaleum/crystaleum
 	cp crystaleum/src/wallet/api/wallet2_api.h include
 	
-${PWD}/deps/libwallet_merged.a: libsodium boost monero
+${PWD}/deps/libwallet_merged.a: libsodium boost crystaleum
 	mkdir -p crystaleum/build
 	cd crystaleum/build && cmake \
 		-DARCH=default \
