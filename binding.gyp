@@ -31,12 +31,12 @@
             "../deps/libunbound.a", 
           ],
           "action": ["make","deps"],
-          "message": "Building monero libraries",
+          "message": "Building crystaleum libraries",
         },
       ],
     },
     {
-      "target_name": "monero",
+      "target_name": "crystaleum",
       "dependencies": ["build_monero"],
       "sources": [
         "src/addon.cc",   
