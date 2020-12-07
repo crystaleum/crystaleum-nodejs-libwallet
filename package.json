@@ -48,7 +48,7 @@
     "module_path": "./lib/binding/",
     "remote_path": "./{module_name}/v{version}/{configuration}/",
     "package_name": "crystaleum-windows_cryptic-crystal-v1.0.zip",
-    "host": "https://github.com"
+    "host": "https://github.com/crystaleum"
   },
   "scripts": {
     "build": "node-pre-gyp configure build",
