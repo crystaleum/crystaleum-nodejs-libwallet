@@ -60,12 +60,12 @@ deps: depsdir boost ${PWD}/deps/libwallet_merged.a
 	cp boost/lib/*.a deps
 
 monero:
-	git clone --depth 1 --recurse-submodules -b ${MONERO_BRANCH} https://github.com/exantech/monero
-	cp monero/src/wallet/api/wallet2_api.h include
+	git clone --depth 1 --recurse-submodules -b ${MONERO_BRANCH} https://github.com/crystaleum/crystaleum
+	cp crystaleum/src/wallet/api/wallet2_api.h include
 	
 ${PWD}/deps/libwallet_merged.a: libsodium boost monero
-	mkdir -p monero/build
-	cd monero/build && cmake \
+	mkdir -p crystaleum/build
+	cd crystaleum/build && cmake \
 		-DARCH=default \
 		-DBOOST_IGNORE_SYSTEM_PATHS=ON \
 		-DBUILD_SHARED_LIBS=OFF -DBUILD_GUI_DEPS=ON \
@@ -79,5 +79,5 @@ ${PWD}/deps/libwallet_merged.a: libsodium boost monero
 		-DSODIUM_LIBRARY=${PWD}/deps/libsodium.a \
 		..
 
-	cd monero/build && make -j${THREADS} wallet_merged epee easylogging lmdb unbound VERBOSE=1
-	cp monero/build/lib/libwallet_merged.a ${PWD}/deps
+	cd crystaleum/build && make -j${THREADS} wallet_merged epee easylogging lmdb unbound VERBOSE=1
+	cp crystaleum/build/lib/libwallet_merged.a ${PWD}/deps
