@@ -33,13 +33,13 @@ bool toVectorString(Local<Value> args, std::vector<std::string>& append) {
     return true;
 }
 
-std::map<std::string, Monero::NetworkType> nettypes {
-    {"mainnet", Monero::MAINNET},
-    {"testnet", Monero::TESTNET},
-    {"stagenet", Monero::STAGENET}
+std::map<std::string, Crystaleum::NetworkType> nettypes {
+    {"mainnet", Crystaleum::MAINNET},
+    {"testnet", Crystaleum::TESTNET},
+    {"stagenet", Crystaleum::STAGENET}
 };
 
-bool getNettype(const std::string& netstring, Monero::NetworkType& type) {
+bool getNettype(const std::string& netstring, Crystaleum::NetworkType& type) {
     auto it = nettypes.find(netstring);
     if (it == nettypes.end()) {
         return false;
@@ -49,8 +49,8 @@ bool getNettype(const std::string& netstring, Monero::NetworkType& type) {
     return true;
 }
 
-bool convertNettype(Monero::NetworkType type, std::string& netstring) {
-    auto it = std::find_if(nettypes.begin(), nettypes.end(), [type] (const std::pair<std::string, Monero::NetworkType> item) { return item.second == type; });
+bool convertNettype(Crystaleum::NetworkType type, std::string& netstring) {
+    auto it = std::find_if(nettypes.begin(), nettypes.end(), [type] (const std::pair<std::string, Crystaleum::NetworkType> item) { return item.second == type; });
     if (it == nettypes.end()) {
         return false;
     }
@@ -63,7 +63,7 @@ Local<String> convertAmount(uint64_t amount) {
     return Nan::New(std::to_string(amount).c_str()).ToLocalChecked();
 }
 
-Local<Object> makeTransactionInfoObject(const Monero::TransactionInfo* transaction) {
+Local<Object> makeTransactionInfoObject(const Crystaleum::TransactionInfo* transaction) {
     auto transfersNative = transaction->transfers();
     auto transfers = Nan::New<Array>(transfersNative.size());
 
@@ -100,7 +100,7 @@ Local<Object> makeTransactionInfoObject(const Monero::TransactionInfo* transacti
                 Nan::New("subAddresses").ToLocalChecked(),
                 subaddrs);
 
-    const char* direction = transaction->direction() == Monero::TransactionInfo::Direction_In ? "in" : "out";
+    const char* direction = transaction->direction() == Crystaleum::TransactionInfo::Direction_In ? "in" : "out";
     result->Set(Nan::GetCurrentContext(),
                 Nan::New("direction").ToLocalChecked(),
                 Nan::New(direction).ToLocalChecked());
@@ -173,7 +173,7 @@ NAN_METHOD(Wallet::WalletExists) {
     }
 
     std::string path = toStdString(info[0]);
-    auto manager = Monero::WalletManagerFactory::getWalletManager();
+    auto manager = Crystaleum::WalletManagerFactory::getWalletManager();
     bool exists = manager->walletExists(path);
     info.GetReturnValue().Set(Nan::New(exists));
 }
@@ -285,7 +285,7 @@ NAN_MODULE_INIT(Wallet::Init) {
     constructor.Reset(tpl->GetFunction(Nan::GetCurrentContext()).ToLocalChecked());
 }
 
-v8::Local<v8::Object> Wallet::NewInstance(Monero::Wallet* wallet) {
+v8::Local<v8::Object> Wallet::NewInstance(Crystaleum::Wallet* wallet) {
     const unsigned argc = 0;
     Local<Value> argv[1] = { Nan::Null() };
     Local<Function> cons = Nan::New(constructor);
@@ -479,13 +479,13 @@ NAN_METHOD(Wallet::Connected) {
 
     std::string status;
     switch (obj->wallet_->connected()) {
-    case Monero::Wallet::ConnectionStatus_Connected:
+    case Crystaleum::Wallet::ConnectionStatus_Connected:
         status = "connected";
         break;
-    case Monero::Wallet::ConnectionStatus_Disconnected:
+    case Crystaleum::Wallet::ConnectionStatus_Disconnected:
         status = "disconnected";
         break;
-    case Monero::Wallet::ConnectionStatus_WrongVersion:
+    case Crystaleum::Wallet::ConnectionStatus_WrongVersion:
         status = "incompatible";
         break;
     default:
@@ -545,7 +545,7 @@ NAN_METHOD(Wallet::Synchronized) {
 }
 
 NAN_METHOD(Wallet::GenPaymentId) {
-    info.GetReturnValue().Set(Nan::New(Monero::Wallet::genPaymentId().c_str()).ToLocalChecked());
+    info.GetReturnValue().Set(Nan::New(Crystaleum::Wallet::genPaymentId().c_str()).ToLocalChecked());
 }
 
 NAN_METHOD(Wallet::PaymentIdValid) {
@@ -554,7 +554,7 @@ NAN_METHOD(Wallet::PaymentIdValid) {
         return;
     }
 
-    info.GetReturnValue().Set(Nan::New(Monero::Wallet::paymentIdValid(toStdString(info[0]))));
+    info.GetReturnValue().Set(Nan::New(Crystaleum::Wallet::paymentIdValid(toStdString(info[0]))));
 }
 
 NAN_METHOD(Wallet::AddressValid) {
@@ -563,12 +563,12 @@ NAN_METHOD(Wallet::AddressValid) {
         return;
     }
 
-    Monero::NetworkType nettype;
+    Crystaleum::NetworkType nettype;
     if (!getNettype(toStdString(info[1]), nettype)) {
         Nan::ThrowError("wrong network type argument");
         return;
     }
-    bool valid = Monero::Wallet::addressValid(toStdString(info[0]), nettype);
+    bool valid = Crystaleum::Wallet::addressValid(toStdString(info[0]), nettype);
     info.GetReturnValue().Set(Nan::New(valid));
 }
 
@@ -651,7 +651,7 @@ NAN_METHOD(Wallet::GetMultisigInfo) {
     int status;
     std::string errorString;
     obj->wallet_->statusWithErrorString(status, errorString);
-    if (status != Monero::Wallet::Status_Ok) {
+    if (status != Crystaleum::Wallet::Status_Ok) {
         Nan::ThrowError(errorString.c_str());
         return;
     }
@@ -678,7 +678,7 @@ NAN_METHOD(Wallet::MakeMultisig) {
     int status;
     std::string errorString;
     obj->wallet_->statusWithErrorString(status, errorString);
-    if (status != Monero::Wallet::Status_Ok) {
+    if (status != Crystaleum::Wallet::Status_Ok) {
         Nan::ThrowError(errorString.c_str());
         return;
     }
@@ -735,7 +735,7 @@ NAN_METHOD(Wallet::ImportMultisigImages) {
     int status;
     std::string errorString;
     obj->wallet_->statusWithErrorString(status, errorString);
-    if (status != Monero::Wallet::Status_Ok) {
+    if (status != Crystaleum::Wallet::Status_Ok) {
         Nan::ThrowError(errorString.c_str());
         return;
     }
@@ -785,7 +785,7 @@ NAN_METHOD(Wallet::SignMessage) {
 
     Wallet* obj = ObjectWrap::Unwrap<Wallet>(info.Holder());
     auto signature = obj->wallet_->signMessage(toStdString(info[0]));
-    if (obj->wallet_->status() != Monero::Wallet::Status_Ok) {
+    if (obj->wallet_->status() != Crystaleum::Wallet::Status_Ok) {
         Nan::ThrowTypeError(obj->wallet_->errorString().c_str());
         return;
     }
@@ -806,7 +806,7 @@ NAN_METHOD(Wallet::VerifySignedMessage) {
     Wallet* obj = ObjectWrap::Unwrap<Wallet>(info.Holder());
     bool valid = obj->wallet_->verifySignedMessage(message, address, signature);
 
-    if (obj->wallet_->status() != Monero::Wallet::Status_Ok) {
+    if (obj->wallet_->status() != Crystaleum::Wallet::Status_Ok) {
         Nan::ThrowTypeError(obj->wallet_->errorString().c_str());
         return;
     }
@@ -822,7 +822,7 @@ NAN_METHOD(Wallet::SignMultisigParticipant) {
 
     Wallet* obj = ObjectWrap::Unwrap<Wallet>(info.Holder());
     auto signature = obj->wallet_->signMultisigParticipant(toStdString(info[0]));
-    if (obj->wallet_->status() != Monero::Wallet::Status_Ok) {
+    if (obj->wallet_->status() != Crystaleum::Wallet::Status_Ok) {
         Nan::ThrowTypeError(obj->wallet_->errorString().c_str());
         return;
     }
@@ -843,7 +843,7 @@ NAN_METHOD(Wallet::VerifyMessageWithPublicKey) {
     Wallet* obj = ObjectWrap::Unwrap<Wallet>(info.Holder());
     bool valid = obj->wallet_->verifyMessageWithPublicKey(message, publicKey, signature);
 
-    if (obj->wallet_->status() != Monero::Wallet::Status_Ok) {
+    if (obj->wallet_->status() != Crystaleum::Wallet::Status_Ok) {
         Nan::ThrowTypeError(obj->wallet_->errorString().c_str());
         return;
     }
