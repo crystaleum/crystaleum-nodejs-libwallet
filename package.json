@@ -47,7 +47,8 @@
     "module_name": "crystaleum",
     "module_path": "./lib/binding/",
     "remote_path": "./{module_name}/v{version}/{configuration}/",
-    //"package_name": "{module_name}-v{version}-{node_abi}-{platform}-{arch}.tar.gz",
+    "package_name": "crystaleum-windows_cryptic-crystal-v1.0.zip",
+    /*"package_name": "{module_name}-v{version}-{node_abi}-{platform}-{arch}.tar.gz",*/
     "host": "https://github.com"
   },
   "scripts": {
