@@ -1,7 +1,7 @@
-export = monero;
-export as namespace monero;
+export = crystaleum;
+export as namespace crystaleum;
 
-declare namespace monero {
+declare namespace crystaleum {
   type Language =
     | 'English'
     | 'Nederlands'
