@@ -14,7 +14,7 @@ struct CreateWalletArgs {
     std::string password;
     std::string language;
     std::string daemonAddress;
-    Monero::NetworkType nettype;
+    Crystaleum::NetworkType nettype;
 };
 
 struct OpenWalletArgs {
@@ -24,7 +24,7 @@ struct OpenWalletArgs {
     std::string path;
     std::string password;
     std::string daemonAddress;
-    Monero::NetworkType nettype;
+    Crystaleum::NetworkType nettype;
 };
 
 
@@ -35,7 +35,7 @@ struct RecoveryWalletArgs {
     std::string path;
     std::string password;
     std::string daemonAddress;
-    Monero::NetworkType nettype;
+    Crystaleum::NetworkType nettype;
     std::string mnemonic;
     uint64_t restoreHeight;
 };
