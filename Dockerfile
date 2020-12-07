@@ -13,4 +13,4 @@ RUN bash -c "source /tmp/.nvm/nvm.sh && nvm install v8 && nvm install v10 && nvm
 
 RUN bash -c "chmod +x /tmp/.nvm/nvm.sh"
 
-WORKDIR /tmp/monero-nodejs-libwallet
+WORKDIR /tmp/crystaleum-nodejs-libwallet
