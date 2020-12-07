@@ -59,7 +59,7 @@ libsodium: depsdir ${SODIUM_LIBRARY}
 deps: depsdir boost ${PWD}/deps/libwallet_merged.a
 	cp boost/lib/*.a deps
 
-monero:
+crystaleum:
 	git clone --depth 1 --recurse-submodules -b ${MONERO_BRANCH} https://github.com/crystaleum/crystaleum
 	cp crystaleum/src/wallet/api/wallet2_api.h include
 	
