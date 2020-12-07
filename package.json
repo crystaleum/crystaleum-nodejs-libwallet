@@ -47,8 +47,8 @@
     "module_name": "crystaleum",
     "module_path": "./lib/binding/",
     "remote_path": "./{module_name}/v{version}/{configuration}/",
-    "package_name": "{module_name}-v{version}-{node_abi}-{platform}-{arch}.tar.gz",
-    "host": "https://crystaleum.org"
+    //"package_name": "{module_name}-v{version}-{node_abi}-{platform}-{arch}.tar.gz",
+    "host": "https://github.com"
   },
   "scripts": {
     "build": "node-pre-gyp configure build",
