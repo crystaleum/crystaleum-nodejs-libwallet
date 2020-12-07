@@ -11,11 +11,11 @@ namespace exawallet {
 
 using CopyablePersistentFunction = Nan::CopyablePersistentTraits<v8::Function>::CopyablePersistent;
 
-class Wallet : public node::ObjectWrap, public Monero::WalletListener {
+class Wallet : public node::ObjectWrap, public Crystaleum::WalletListener {
 public:
     static NAN_MODULE_INIT(Init);
 
-    static v8::Local<v8::Object> NewInstance(Monero::Wallet* wallet);
+    static v8::Local<v8::Object> NewInstance(Crystaleum::Wallet* wallet);
 
     static NAN_METHOD(WalletExists);
     static NAN_METHOD(CreateWallet);
@@ -31,7 +31,7 @@ public:
     v8::MaybeLocal<v8::Function> FindCallback(const std::string& name);
 
  private:
-    explicit Wallet(Monero::Wallet* wallet): wallet_(wallet) {}
+    explicit Wallet(Crystaleum::Wallet* wallet): wallet_(wallet) {}
     ~Wallet();
 
     virtual void moneySpent(const std::string &txId, uint64_t amount) override;
@@ -101,7 +101,7 @@ public:
 
     static Nan::Persistent<v8::Function> constructor;
 
-    Monero::Wallet* wallet_ = nullptr;
+    Crystaleum::Wallet* wallet_ = nullptr;
     std::map<std::string, CopyablePersistentFunction> callbacks_;
 };
 
