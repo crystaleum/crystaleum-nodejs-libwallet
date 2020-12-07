@@ -8,7 +8,7 @@ namespace exawallet {
 using namespace v8;
 
 std::string CreateWalletTask::doWork() {
-    auto manager = Monero::WalletManagerFactory::getWalletManager();
+    auto manager = Crystaleum::WalletManagerFactory::getWalletManager();
     if (manager->walletExists(args_.path)) {
         return "Wallet already exists: " + args_.path;
     }
@@ -37,7 +37,7 @@ Local<Value> CreateWalletTask::afterWork(std::string& error) {
 }
 
 std::string OpenWalletTask::doWork() {
-    auto manager = Monero::WalletManagerFactory::getWalletManager();
+    auto manager = Crystaleum::WalletManagerFactory::getWalletManager();
     if (!manager->walletExists(args_.path)) {
         return "wallet does not exist: " + args_.path;
     }
@@ -66,7 +66,7 @@ Local<Value> OpenWalletTask::afterWork(std::string& error) {
 }
 
 std::string CloseWalletTask::doWork() {
-    auto manager = Monero::WalletManagerFactory::getWalletManager();
+    auto manager = Crystaleum::WalletManagerFactory::getWalletManager();
     manager->closeWallet(wallet_, store_);
     return {};
 }
@@ -76,7 +76,7 @@ Local<Value> CloseWalletTask::afterWork(std::string& error) {
 }
 
 std::string RecoveryWalletTask::doWork() {
-    auto manager = Monero::WalletManagerFactory::getWalletManager();
+    auto manager = Crystaleum::WalletManagerFactory::getWalletManager();
 
     wallet_ = manager->recoveryWallet(args_.path,
                                        args_.password,
