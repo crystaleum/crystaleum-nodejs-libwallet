@@ -62,7 +62,7 @@ NAN_METHOD(PendingTransaction::New) {
   }
 }
 
-Local<Object> PendingTransaction::NewInstance(Monero::PendingTransaction* tx) {
+Local<Object> PendingTransaction::NewInstance(Crystaleum::PendingTransaction* tx) {
     const unsigned argc = 0;
     Local<Value> argv[1] = { Nan::Null() };
     Local<Function> cons = Nan::New(constructor);
@@ -129,7 +129,7 @@ NAN_METHOD(PendingTransaction::MultisigSignData) {
     PendingTransaction* obj = ObjectWrap::Unwrap<PendingTransaction>(info.Holder());
 
     auto signData = obj->transaction->multisigSignData();
-    if (obj->transaction->status() != Monero::Wallet::Status_Ok) {
+    if (obj->transaction->status() != Crystaleum::Wallet::Status_Ok) {
         Nan::ThrowError(obj->transaction->errorString().c_str());
         return;
     }
@@ -157,7 +157,7 @@ NAN_METHOD(PendingTransaction::SignMultisigTransaction) {
     PendingTransaction* obj = ObjectWrap::Unwrap<PendingTransaction>(info.Holder());
 
     obj->transaction->signMultisigTx();
-    if (obj->transaction->status() != Monero::Wallet::Status_Ok) {
+    if (obj->transaction->status() != Crystaleum::Wallet::Status_Ok) {
         Nan::ThrowError(obj->transaction->errorString().c_str());
         return;
     }
