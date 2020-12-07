@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, The Monero Project
+// Copyright (c) 2014-2019, The Crystaleum Project
 // 
 // All rights reserved.
 // 
@@ -40,7 +40,7 @@
 #include <stdexcept>
 
 //  Public interface for libwallet library
-namespace Monero {
+namespace Crystaleum {
 
 enum NetworkType : uint8_t {
     MAINNET = 0,
@@ -1324,5 +1324,5 @@ std::string chachaDecrypt(const std::string& cipher, const std::string& key);
 
 }
 
-namespace Bitmonero = Monero;
+namespace Bitmonero = Crystaleum;
 
